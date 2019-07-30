@@ -17,18 +17,19 @@ namespace DockerOnDotNet
             Console.ReadLine();
         }
 
-        static public async Task AsyncCallback() { 
+        static public async Task AsyncCallback()
+        {
             using (var conf = new DockerClientConfiguration(new Uri("npipe://./pipe/docker_engine")))
             {
                 using (var client = conf.CreateClient())
                 {
                     var progress = new Progress<JSONMessage>();
 
-                    progress.ProgressChanged += (sender, jsonMessage) =>  Console.WriteLine("!") ;
+                    progress.ProgressChanged += (sender, jsonMessage) => Console.WriteLine("!");
 
                     await client.Images.CreateImageAsync(
-                        new ImagesCreateParameters() { FromImage = "tensorflow/tensorflow", Tag = "latest" }, 
-                        new AuthConfig(), 
+                        new ImagesCreateParameters() { FromImage = "tensorflow/tensorflow", Tag = "latest" },
+                        new AuthConfig(),
                         progress);
 
                     // Create the container
@@ -61,7 +62,8 @@ namespace DockerOnDotNet
                         if (!started)
                         {
                             Console.WriteLine("Not Running");
-                        } else
+                        }
+                        else
                         {
                             Console.WriteLine("Running");
                         }
